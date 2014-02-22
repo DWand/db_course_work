@@ -3,5 +3,5 @@ Database desktop client
 Language: Ukrainian
 
 **Requirements**
-node-webkit
-MS SQL Server
+* node-webkit
+* MS SQL Server
