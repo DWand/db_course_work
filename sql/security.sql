@@ -4,7 +4,7 @@ USE "sp110_15_db_2013";
 -- DROP ROLE "Admin"
 CREATE ROLE "Admin";
 
--- Дозволи на таблиці
+-- Р”РѕР·РІРѕР»Рё РЅР° С‚Р°Р±Р»РёС†С–
 
 
 
@@ -31,7 +31,7 @@ CREATE ROLE "Admin";
 
 
 
--- Дозволи на View
+-- Р”РѕР·РІРѕР»Рё РЅР° View
 
 
 
@@ -39,7 +39,7 @@ CREATE ROLE "Admin";
 
 
 
--- Дозволи на Procedure
+-- Р”РѕР·РІРѕР»Рё РЅР° Procedure
 
 
 
@@ -49,7 +49,7 @@ CREATE ROLE "Admin";
 
 
 
--- Дозволи на Function
+-- Р”РѕР·РІРѕР»Рё РЅР° Function
 
 
 
@@ -87,7 +87,7 @@ ALTER ROLE "Admin" ADD MEMBER "adminUser";
 -- DROP ROLE "ExcursionManager"
 CREATE ROLE "ExcursionManager";
 
--- Дозволи на таблиці
+-- Р”РѕР·РІРѕР»Рё РЅР° С‚Р°Р±Р»РёС†С–
 
 
 
@@ -100,14 +100,14 @@ CREATE ROLE "ExcursionManager";
 
 
 
--- Дозволи на View
+-- Р”РѕР·РІРѕР»Рё РЅР° View
 
 
 
 
 
 
--- Дозволи на Procedure
+-- Р”РѕР·РІРѕР»Рё РЅР° Procedure
 
 
 
@@ -115,7 +115,7 @@ CREATE ROLE "ExcursionManager";
 
 
 
--- Дозволи на Function
+-- Р”РѕР·РІРѕР»Рё РЅР° Function
 
 
 
@@ -134,7 +134,7 @@ ALTER ROLE "ExcursionManager" ADD MEMBER "excursionManagerUser";
 -- DROP ROLE "Web"
 CREATE ROLE "Web";
 
--- Дозволи на таблиці
+-- Р”РѕР·РІРѕР»Рё РЅР° С‚Р°Р±Р»РёС†С–
 
 
 

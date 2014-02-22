@@ -3,7 +3,7 @@ USE "sp110_15_db_2013";
 
 
 
--- Дати прибуття і відбуття туриста з країни
+-- Р”Р°С‚Рё РїСЂРёР±СѓС‚С‚СЏ С– РІС–РґР±СѓС‚С‚СЏ С‚СѓСЂРёСЃС‚Р° Р· РєСЂР°С—РЅРё
 -- DROP VIEW "TouristInCountryDates"
 CREATE VIEW "TouristInCountryDates"
 AS
@@ -24,7 +24,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristInCountryDates" TO "
 
 
 
--- Кількість відвідувань екскурсій
+-- РљС–Р»СЊРєС–СЃС‚СЊ РІС–РґРІС–РґСѓРІР°РЅСЊ РµРєСЃРєСѓСЂСЃС–Р№
 -- DROP VIEW "ExcursionVisits"
 CREATE VIEW "ExcursionVisits"
 AS
@@ -77,8 +77,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristInfo" TO "Admin" WIT
 
 
 -- 1
--- Список туристів для митниці
--- в цілому
+-- РЎРїРёСЃРѕРє С‚СѓСЂРёСЃС‚С–РІ РґР»СЏ РјРёС‚РЅРёС†С–
+-- РІ С†С–Р»РѕРјСѓ
 -- DROP PROCEDURE GetTouristsList
 CREATE PROCEDURE "GetTouristsList"
 AS
@@ -94,8 +94,8 @@ GRANT EXECUTE ON "GetTouristsList" TO "Admin" WITH GRANT OPTION;
 
 
 -- 1
--- Список туристів для митниці
--- по зазначеній категорії
+-- РЎРїРёСЃРѕРє С‚СѓСЂРёСЃС‚С–РІ РґР»СЏ РјРёС‚РЅРёС†С–
+-- РїРѕ Р·Р°Р·РЅР°С‡РµРЅС–Р№ РєР°С‚РµРіРѕСЂС–С—
 -- DROP PROCEDURE "GetTouristsListByCategory"
 CREATE PROCEDURE "GetTouristsListByCategory"
   @category_id INT
@@ -113,8 +113,8 @@ GRANT EXECUTE ON "GetTouristsListByCategory" TO "Admin" WITH GRANT OPTION;
 
 
 -- 2
--- Список для розселення по зазначених готелях
--- в цілому
+-- РЎРїРёСЃРѕРє РґР»СЏ СЂРѕР·СЃРµР»РµРЅРЅСЏ РїРѕ Р·Р°Р·РЅР°С‡РµРЅРёС… РіРѕС‚РµР»СЏС…
+-- РІ С†С–Р»РѕРјСѓ
 -- DROP FUNCTION "GetResidenceForHotel"
 CREATE FUNCTION "GetResidenceForHotel" (
   @hotel_id INT
@@ -140,8 +140,8 @@ GRANT SELECT, REFERENCES ON "GetResidenceForHotel" TO "Admin" WITH GRANT OPTION;
 
 
 -- 2
--- Список для розселення по зазначених готелях
--- по зазначеній категорії
+-- РЎРїРёСЃРѕРє РґР»СЏ СЂРѕР·СЃРµР»РµРЅРЅСЏ РїРѕ Р·Р°Р·РЅР°С‡РµРЅРёС… РіРѕС‚РµР»СЏС…
+-- РїРѕ Р·Р°Р·РЅР°С‡РµРЅС–Р№ РєР°С‚РµРіРѕСЂС–С—
 -- DROP FUNCTION "GetResidenceForHotelByCategory"
 CREATE FUNCTION "GetResidenceForHotelByCategory" (
   @hotel_id INT,
@@ -168,9 +168,9 @@ GRANT SELECT, REFERENCES ON "GetResidenceForHotelByCategory" TO "Admin" WITH GRA
 
 
 -- 3
--- Кількість туристів, що побували в країні
--- за певний період
--- в цілому
+-- РљС–Р»СЊРєС–СЃС‚СЊ С‚СѓСЂРёСЃС‚С–РІ, С‰Рѕ РїРѕР±СѓРІР°Р»Рё РІ РєСЂР°С—РЅС–
+-- Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ
+-- РІ С†С–Р»РѕРјСѓ
 -- DROP FUNCTION "GetTouristsAmountForPeriod"
 CREATE FUNCTION "GetTouristsAmountForPeriod" (
   @start_date DATETIME,
@@ -198,9 +198,9 @@ GRANT EXECUTE, REFERENCES ON "GetTouristsAmountForPeriod" TO "Admin" WITH GRANT 
 
 
 -- 3
--- Кількість туристів, що побували в країні
--- за певний період
--- по певній категорії
+-- РљС–Р»СЊРєС–СЃС‚СЊ С‚СѓСЂРёСЃС‚С–РІ, С‰Рѕ РїРѕР±СѓРІР°Р»Рё РІ РєСЂР°С—РЅС–
+-- Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ
+-- РїРѕ РїРµРІРЅС–Р№ РєР°С‚РµРіРѕСЂС–С—
 -- DROP FUNCTION "GetTouristsAmountForPeriodByCategory"
 CREATE FUNCTION "GetTouristsAmountForPeriodByCategory" (
   @start_date DATETIME,
@@ -233,7 +233,7 @@ GRANT EXECUTE, REFERENCES ON "GetTouristsAmountForPeriodByCategory" TO "Admin" W
 
 
 -- 4
--- Скільки разів турист був у країні
+-- РЎРєС–Р»СЊРєРё СЂР°Р·С–РІ С‚СѓСЂРёСЃС‚ Р±СѓРІ Сѓ РєСЂР°С—РЅС–
 -- DROP FUNCTION "GetCountryVisitsAmountForHuman"
 CREATE FUNCTION "GetCountryVisitsAmountForHuman" (
   @human_id INT
@@ -259,7 +259,7 @@ GRANT EXECUTE, REFERENCES ON "GetCountryVisitsAmountForHuman" TO "Admin" WITH GR
 
 
 -- 4
--- Дати прильоту і відльоту туриста
+-- Р”Р°С‚Рё РїСЂРёР»СЊРѕС‚Сѓ С– РІС–РґР»СЊРѕС‚Сѓ С‚СѓСЂРёСЃС‚Р°
 -- DROP PROCEDURE "GetFlightsDatesListForHuman"
 CREATE FUNCTION "GetFlightsDatesListForHuman" (
   @human_id INT
@@ -279,7 +279,7 @@ GRANT SELECT, REFERENCES ON "GetFlightsDatesListForHuman" TO "Admin" WITH GRANT 
 
 
 -- 4
--- В яких готелях зупинявся турист
+-- Р’ СЏРєРёС… РіРѕС‚РµР»СЏС… Р·СѓРїРёРЅСЏРІСЃСЏ С‚СѓСЂРёСЃС‚
 -- DROP FUNCTION "GetHotelsResidenceListForHuman"
 CREATE FUNCTION "GetHotelsResidenceListForHuman" (
   @human_id INT
@@ -309,7 +309,7 @@ GRANT SELECT, REFERENCES ON "GetHotelsResidenceListForHuman" TO "Admin" WITH GRA
 
 
 -- 4
--- Які екскурсії і в яких агентствах замовляв турист
+-- РЇРєС– РµРєСЃРєСѓСЂСЃС–С— С– РІ СЏРєРёС… Р°РіРµРЅС‚СЃС‚РІР°С… Р·Р°РјРѕРІР»СЏРІ С‚СѓСЂРёСЃС‚
 -- DROP FUNCTION "GetExcursionListForHuman"
 CREATE FUNCTION "GetExcursionListForHuman" (
   @human_id INT
@@ -341,7 +341,7 @@ GRANT SELECT, REFERENCES ON "GetExcursionListForHuman" TO "Admin" WITH GRANT OPT
 
 
 -- 4
--- Який багаж турист здавав
+-- РЇРєРёР№ Р±Р°РіР°Р¶ С‚СѓСЂРёСЃС‚ Р·РґР°РІР°РІ
 -- DROP FUNCTION "GetBaggageListForHuman"
 CREATE FUNCTION "GetBaggageListForHuman" (
   @human_id INT
@@ -365,9 +365,9 @@ GRANT SELECT, REFERENCES ON "GetBaggageListForHuman" TO "Admin" WITH GRANT OPTIO
 
 
 -- 5
--- Список готелів, у яких робиться розселення туристів, 
--- із зазначенням кількості зайнятих номерів
--- за певний період
+-- РЎРїРёСЃРѕРє РіРѕС‚РµР»С–РІ, Сѓ СЏРєРёС… СЂРѕР±РёС‚СЊСЃСЏ СЂРѕР·СЃРµР»РµРЅРЅСЏ С‚СѓСЂРёСЃС‚С–РІ, 
+-- С–Р· Р·Р°Р·РЅР°С‡РµРЅРЅСЏРј РєС–Р»СЊРєРѕСЃС‚С– Р·Р°Р№РЅСЏС‚РёС… РЅРѕРјРµСЂС–РІ
+-- Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ
 -- DROP FUNCTION "GetHotelForResidenceByPeriodWithOccupiedRoomsAmount"
 CREATE FUNCTION "GetHotelForResidenceByPeriodWithOccupiedRoomsAmount" (
   @start_date DATETIME,
@@ -394,8 +394,8 @@ GRANT SELECT, REFERENCES ON "GetHotelForResidenceByPeriodWithOccupiedRoomsAmount
 
 
 -- 6
--- Загальна кількість туристів, що замовили екскурсії
--- за певний період
+-- Р—Р°РіР°Р»СЊРЅР° РєС–Р»СЊРєС–СЃС‚СЊ С‚СѓСЂРёСЃС‚С–РІ, С‰Рѕ Р·Р°РјРѕРІРёР»Рё РµРєСЃРєСѓСЂСЃС–С—
+-- Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ
 -- DROP FUNCTION "GetTouristsAmountWhoWhentToExcursionsByPeriod"
 CREATE FUNCTION "GetTouristsAmountWhoWhentToExcursionsByPeriod" (
   @start_date DATETIME,
@@ -423,7 +423,7 @@ GRANT EXECUTE, REFERENCES ON "GetTouristsAmountWhoWhentToExcursionsByPeriod" TO 
 
 
 -- 7
--- Вибрати найпопулярніші екскурсії
+-- Р’РёР±СЂР°С‚Рё РЅР°Р№РїРѕРїСѓР»СЏСЂРЅС–С€С– РµРєСЃРєСѓСЂСЃС–С—
 -- DROP VIEW "MostPopularExcursions"
 CREATE VIEW "MostPopularExcursions"
 AS
@@ -443,7 +443,7 @@ GRANT SELECT ON "MostPopularExcursions" TO "ExcursionManager";
 
 
 -- 7
--- Вибрати найякісніші екскурсійні агентства
+-- Р’РёР±СЂР°С‚Рё РЅР°Р№СЏРєС–СЃРЅС–С€С– РµРєСЃРєСѓСЂСЃС–Р№РЅС– Р°РіРµРЅС‚СЃС‚РІР°
 -- DROP VIEW "TheBestExcursionAgencies"
 CREATE VIEW "TheBestExcursionAgencies"
 AS
@@ -465,8 +465,8 @@ GRANT SELECT ON "TheBestExcursionAgencies" TO "ExcursionManager";
 
 
 -- 8
--- Завантаження зазначеного рейсу літака на певну дату:
--- кількість місць, вага багажу, об'ємна вага
+-- Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ Р·Р°Р·РЅР°С‡РµРЅРѕРіРѕ СЂРµР№СЃСѓ Р»С–С‚Р°РєР° РЅР° РїРµРІРЅСѓ РґР°С‚Сѓ:
+-- РєС–Р»СЊРєС–СЃС‚СЊ РјС–СЃС†СЊ, РІР°РіР° Р±Р°РіР°Р¶Сѓ, РѕР±'С”РјРЅР° РІР°РіР°
 -- DROP PROCEDURE "GetFlightStatistic"
 CREATE PROCEDURE "GetFlightStatistic"
   @plane_id INT,
@@ -520,10 +520,10 @@ GRANT EXECUTE ON "GetFlightStatistic" TO "Admin" WITH GRANT OPTION;
 
 
 -- 9
--- Вантажообіг складу:
--- кількість місць та вага вантажу, зданого за певний період,
--- кількість літаків, що вивозили цей вантаж,
--- скільки з них вантажних, а скільки вантажопасажирських
+-- Р’Р°РЅС‚Р°Р¶РѕРѕР±С–Рі СЃРєР»Р°РґСѓ:
+-- РєС–Р»СЊРєС–СЃС‚СЊ РјС–СЃС†СЊ С‚Р° РІР°РіР° РІР°РЅС‚Р°Р¶Сѓ, Р·РґР°РЅРѕРіРѕ Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ,
+-- РєС–Р»СЊРєС–СЃС‚СЊ Р»С–С‚Р°РєС–РІ, С‰Рѕ РІРёРІРѕР·РёР»Рё С†РµР№ РІР°РЅС‚Р°Р¶,
+-- СЃРєС–Р»СЊРєРё Р· РЅРёС… РІР°РЅС‚Р°Р¶РЅРёС…, Р° СЃРєС–Р»СЊРєРё РІР°РЅС‚Р°Р¶РѕРїР°СЃР°Р¶РёСЂСЃСЊРєРёС…
 -- DROP PROCEDURE "GetStorageStatistics"
 CREATE PROCEDURE "GetStorageStatistics"
   @start_date DATETIME,
@@ -592,8 +592,8 @@ GRANT EXECUTE ON "GetStorageStatistics" TO "Admin" WITH GRANT OPTION;
 
 
 -- 10
--- Повний фінансовий звіт по зазначеній групі
--- в цілому
+-- РџРѕРІРЅРёР№ С„С–РЅР°РЅСЃРѕРІРёР№ Р·РІС–С‚ РїРѕ Р·Р°Р·РЅР°С‡РµРЅС–Р№ РіСЂСѓРїС–
+-- РІ С†С–Р»РѕРјСѓ
 -- DROP PROCEDURE "FinancialReportByGroup"
 CREATE PROCEDURE "FinancialReportByGroup"
   @group_id INT
@@ -675,8 +675,8 @@ GRANT EXECUTE ON "FinancialReportByGroup" TO "Admin" WITH GRANT OPTION;
 
 
 -- 10
--- Повний фінансовий звіт по зазначеній групі
--- для певної категорії
+-- РџРѕРІРЅРёР№ С„С–РЅР°РЅСЃРѕРІРёР№ Р·РІС–С‚ РїРѕ Р·Р°Р·РЅР°С‡РµРЅС–Р№ РіСЂСѓРїС–
+-- РґР»СЏ РїРµРІРЅРѕС— РєР°С‚РµРіРѕСЂС–С—
 -- DROP PROCEDURE "FinancialReportByGroupAndCategory"
 CREATE PROCEDURE "FinancialReportByGroupAndCategory"
   @group_id INT,
@@ -760,8 +760,8 @@ GRANT EXECUTE ON "FinancialReportByGroupAndCategory" TO "Admin" WITH GRANT OPTIO
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Доходи
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- Р”РѕС…РѕРґРё
 -- DROP FUNCTION "DebetCreditByPeriodIncome"
 CREATE FUNCTION "DebetCreditByPeriodIncome" (
   @start_date DATETIME,
@@ -790,8 +790,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodIncome" TO "Admin" WITH GRANT O
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Обслуговування літака
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- РћР±СЃР»СѓРіРѕРІСѓРІР°РЅРЅСЏ Р»С–С‚Р°РєР°
 -- DROP FUNCTION "DebetCreditByPeriodPlanes"
 CREATE FUNCTION "DebetCreditByPeriodPlanes" (
   @start_date DATETIME,
@@ -820,8 +820,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodPlanes" TO "Admin" WITH GRANT O
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Готель
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- Р“РѕС‚РµР»СЊ
 -- DROP FUNCTION "DebetCreditByPeriodHotels"
 CREATE FUNCTION "DebetCreditByPeriodHotels" (
   @start_date DATETIME,
@@ -882,8 +882,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodHotels" TO "Admin" WITH GRANT O
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Екскурсії
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- Р•РєСЃРєСѓСЂСЃС–С—
 -- DROP FUNCTION "DebetCreditByPeriodExcursions"
 CREATE FUNCTION "DebetCreditByPeriodExcursions" (
   @start_date DATETIME,
@@ -912,8 +912,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodExcursions" TO "Admin" WITH GRA
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Візи
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- Р’С–Р·Рё
 -- DROP FUNCTION "DebetCreditByPeriodVisas"
 CREATE FUNCTION "DebetCreditByPeriodVisas" (
   @start_date DATETIME,
@@ -941,8 +941,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodVisas" TO "Admin" WITH GRANT OP
 
 
 -- 11
--- Дані про витрати і доходи за певний період:
--- Витрати представництва
+-- Р”Р°РЅС– РїСЂРѕ РІРёС‚СЂР°С‚Рё С– РґРѕС…РѕРґРё Р·Р° РїРµРІРЅРёР№ РїРµСЂС–РѕРґ:
+-- Р’РёС‚СЂР°С‚Рё РїСЂРµРґСЃС‚Р°РІРЅРёС†С‚РІР°
 -- DROP FUNCTION "DebetCreditByPeriodSpendings"
 CREATE FUNCTION "DebetCreditByPeriodSpendings" (
   @start_date DATETIME,
@@ -970,8 +970,8 @@ GRANT EXECUTE, REFERENCES ON "DebetCreditByPeriodSpendings" TO "Admin" WITH GRAN
 
 
 -- 12
--- Отримати статистику по видах багажу, що відправляється 
--- і питому частку кожного виду в загальному вантажопотоці
+-- РћС‚СЂРёРјР°С‚Рё СЃС‚Р°С‚РёСЃС‚РёРєСѓ РїРѕ РІРёРґР°С… Р±Р°РіР°Р¶Сѓ, С‰Рѕ РІС–РґРїСЂР°РІР»СЏС”С‚СЊСЃСЏ 
+-- С– РїРёС‚РѕРјСѓ С‡Р°СЃС‚РєСѓ РєРѕР¶РЅРѕРіРѕ РІРёРґСѓ РІ Р·Р°РіР°Р»СЊРЅРѕРјСѓ РІР°РЅС‚Р°Р¶РѕРїРѕС‚РѕС†С–
 -- drop procedure GetBaggageTypeStatistics
 CREATE PROCEDURE "GetBaggageTypeStatistics"
   @start_date DATETIME,
@@ -1014,7 +1014,7 @@ GRANT EXECUTE ON "GetBaggageTypeStatistics" TO "Admin" WITH GRANT OPTION;
 
 
 -- 13
--- Рентабельність представництва (співвідношення доходів та витрат)
+-- Р РµРЅС‚Р°Р±РµР»СЊРЅС–СЃС‚СЊ РїСЂРµРґСЃС‚Р°РІРЅРёС†С‚РІР° (СЃРїС–РІРІС–РґРЅРѕС€РµРЅРЅСЏ РґРѕС…РѕРґС–РІ С‚Р° РІРёС‚СЂР°С‚)
 -- DROP FUNCTION "RentabilityByPeriod"
 CREATE FUNCTION "RentabilityByPeriod" (
   @start_date DATETIME,
@@ -1050,8 +1050,8 @@ GRANT EXECUTE, REFERENCES ON "RentabilityByPeriod" TO "Admin" WITH GRANT OPTION;
 
 
 -- 14
--- Процентне відношення відпочиваючих туристів до туристів shop-турів
--- в цілому
+-- РџСЂРѕС†РµРЅС‚РЅРµ РІС–РґРЅРѕС€РµРЅРЅСЏ РІС–РґРїРѕС‡РёРІР°СЋС‡РёС… С‚СѓСЂРёСЃС‚С–РІ РґРѕ С‚СѓСЂРёСЃС‚С–РІ shop-С‚СѓСЂС–РІ
+-- РІ С†С–Р»РѕРјСѓ
 -- DROP FUNCTION "GetRatioBetweenRestAndShop"
 CREATE FUNCTION "GetRatioBetweenRestAndShop" (
 ) RETURNS FLOAT
@@ -1083,8 +1083,8 @@ GRANT EXECUTE, REFERENCES ON "GetRatioBetweenRestAndShop" TO "Admin" WITH GRANT 
 
 
 -- 14
--- Процентне відношення відпочиваючих туристів до туристів shop-турів
--- за вказаний період
+-- РџСЂРѕС†РµРЅС‚РЅРµ РІС–РґРЅРѕС€РµРЅРЅСЏ РІС–РґРїРѕС‡РёРІР°СЋС‡РёС… С‚СѓСЂРёСЃС‚С–РІ РґРѕ С‚СѓСЂРёСЃС‚С–РІ shop-С‚СѓСЂС–РІ
+-- Р·Р° РІРєР°Р·Р°РЅРёР№ РїРµСЂС–РѕРґ
 -- DROP FUNCTION "GetRatioBetweenRestAndShopByPeriod";
 CREATE FUNCTION "GetRatioBetweenRestAndShopByPeriod" (
   @start_date DATETIME,
@@ -1122,8 +1122,8 @@ GRANT EXECUTE, REFERENCES ON "GetRatioBetweenRestAndShopByPeriod" TO "Admin" WIT
 
 
 -- 15
--- Відомості про туристів зазначеного рейсу:
--- Список груп
+-- Р’С–РґРѕРјРѕСЃС‚С– РїСЂРѕ С‚СѓСЂРёСЃС‚С–РІ Р·Р°Р·РЅР°С‡РµРЅРѕРіРѕ СЂРµР№СЃСѓ:
+-- РЎРїРёСЃРѕРє РіСЂСѓРї
 -- DROP FUNCTION "GetGroupsByFlight"
 CREATE FUNCTION "GetGroupsByFlight" (
   @flight_id INT
@@ -1145,8 +1145,8 @@ GRANT SELECT, REFERENCES ON "GetGroupsByFlight" TO "Admin" WITH GRANT OPTION;
 
 
 -- 15
--- Відомості про туристів зазначеного рейсу:
--- Готелі
+-- Р’С–РґРѕРјРѕСЃС‚С– РїСЂРѕ С‚СѓСЂРёСЃС‚С–РІ Р·Р°Р·РЅР°С‡РµРЅРѕРіРѕ СЂРµР№СЃСѓ:
+-- Р“РѕС‚РµР»С–
 -- DROP FUNCTION "GetHotelsByFlight"
 CREATE FUNCTION "GetHotelsByFlight" (
   @flight_id INT
@@ -1169,8 +1169,8 @@ GRANT SELECT, REFERENCES ON "GetHotelsByFlight" TO "Admin" WITH GRANT OPTION;
 
 
 -- 15
--- Відомості про туристів зазначеного рейсу:
--- Вантаж
+-- Р’С–РґРѕРјРѕСЃС‚С– РїСЂРѕ С‚СѓСЂРёСЃС‚С–РІ Р·Р°Р·РЅР°С‡РµРЅРѕРіРѕ СЂРµР№СЃСѓ:
+-- Р’Р°РЅС‚Р°Р¶
 -- DROP FUNCTION "GetBaggageByFlight"
 CREATE FUNCTION "GetBaggageByFlight" (
   @flight_id INT

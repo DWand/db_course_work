@@ -26,10 +26,10 @@ ALTER ROLE "Web" ADD MEMBER "webUser";
 
 
 
--- Таблица Пол человека
+-- РўР°Р±Р»РёС†Р° РџРѕР» С‡РµР»РѕРІРµРєР°
 CREATE TABLE "Sex" (
   "id" TINYINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(10) NOT NULL                               -- название пола
+, "name" VARCHAR(10) NOT NULL                               -- РЅР°Р·РІР°РЅРёРµ РїРѕР»Р°
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Sex" TO "Admin" WITH GRANT OPTION;
@@ -38,15 +38,15 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Sex" TO "Admin" WITH GRANT 
 
 
 
--- Таблица Люди
+-- РўР°Р±Р»РёС†Р° Р›СЋРґРё
 CREATE TABLE "Human" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(45) NOT NULL                               -- имя
-, "surname" VARCHAR(45) NOT NULL                            -- фамилия
-, "patronymic" VARCHAR(45) NOT NULL                         -- отчество
-, "passport" VARCHAR(20)                                    -- номер паспорта
-, "sex_id" TINYINT NOT NULL                                 -- пол
-, "birthday" DATETIME NOT NULL                              -- дата рождения
+, "name" VARCHAR(45) NOT NULL                               -- РёРјСЏ
+, "surname" VARCHAR(45) NOT NULL                            -- С„Р°РјРёР»РёСЏ
+, "patronymic" VARCHAR(45) NOT NULL                         -- РѕС‚С‡РµСЃС‚РІРѕ
+, "passport" VARCHAR(20)                                    -- РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°
+, "sex_id" TINYINT NOT NULL                                 -- РїРѕР»
+, "birthday" DATETIME NOT NULL                              -- РґР°С‚Р° СЂРѕР¶РґРµРЅРёСЏ
   
 , CONSTRAINT "fk_human_sex" 
     FOREIGN KEY ("sex_id")
@@ -61,10 +61,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Human" TO "Admin" WITH GRAN
 
 
 
--- Таблица Категории туристов
+-- РўР°Р±Р»РёС†Р° РљР°С‚РµРіРѕСЂРёРё С‚СѓСЂРёСЃС‚РѕРІ
 CREATE TABLE "TouristCategory" (
   "id" TINYINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(30) NOT NULL                               -- Название категории туристов
+, "name" VARCHAR(30) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё С‚СѓСЂРёСЃС‚РѕРІ
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristCategory" TO "Admin" WITH GRANT OPTION;
@@ -73,10 +73,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristCategory" TO "Admin"
 
 
 
--- Таблица Группы туристов
+-- РўР°Р±Р»РёС†Р° Р“СЂСѓРїРїС‹ С‚СѓСЂРёСЃС‚РѕРІ
 CREATE TABLE "TouristGroup" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "label" VARCHAR(30) NOT NULL                              -- Код группы туристов
+, "label" VARCHAR(30) NOT NULL                              -- РљРѕРґ РіСЂСѓРїРїС‹ С‚СѓСЂРёСЃС‚РѕРІ
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristGroup" TO "Admin" WITH GRANT OPTION;
@@ -85,13 +85,13 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "TouristGroup" TO "Admin" WI
 
 
 
--- Таблица Туристы
+-- РўР°Р±Р»РёС†Р° РўСѓСЂРёСЃС‚С‹
 CREATE TABLE "Tourist" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "human_id" INT NOT NULL                                   -- Идентификатор человека
-, "category_id" TINYINT NOT NULL                            -- Идентификатор категории туриста
-, "group_id" INT NOT NULL                                   -- Идентификатор группы туриста
-, "paid_for_tour" MONEY NOT NULL                            -- Сумма, которую турист заплатил за путевку
+, "human_id" INT NOT NULL                                   -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‡РµР»РѕРІРµРєР°
+, "category_id" TINYINT NOT NULL                            -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР°С‚РµРіРѕСЂРёРё С‚СѓСЂРёСЃС‚Р°
+, "group_id" INT NOT NULL                                   -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РіСЂСѓРїРїС‹ С‚СѓСЂРёСЃС‚Р°
+, "paid_for_tour" MONEY NOT NULL                            -- РЎСѓРјРјР°, РєРѕС‚РѕСЂСѓСЋ С‚СѓСЂРёСЃС‚ Р·Р°РїР»Р°С‚РёР» Р·Р° РїСѓС‚РµРІРєСѓ
   
 , CONSTRAINT "fk_tourist_human" 
     FOREIGN KEY ("human_id")
@@ -118,13 +118,13 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Tourist" TO "Admin" WITH GR
 
 
 
--- Таблица Визы
+-- РўР°Р±Р»РёС†Р° Р’РёР·С‹
 CREATE TABLE "Visa" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "tourist_id" INT NOT NULL                                 -- Идентификатор туриста, которому дана виза
-, "date_given" DATETIME NOT NULL                            -- Дата выдачи визы
-, "date_expires" DATETIME NOT NULL                          -- Дата истечения визы
-, "cost" MONEY NOT NULL                                     -- Стоимость оформления визы
+, "tourist_id" INT NOT NULL                                 -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚СѓСЂРёСЃС‚Р°, РєРѕС‚РѕСЂРѕРјСѓ РґР°РЅР° РІРёР·Р°
+, "date_given" DATETIME NOT NULL                            -- Р”Р°С‚Р° РІС‹РґР°С‡Рё РІРёР·С‹
+, "date_expires" DATETIME NOT NULL                          -- Р”Р°С‚Р° РёСЃС‚РµС‡РµРЅРёСЏ РІРёР·С‹
+, "cost" MONEY NOT NULL                                     -- РЎС‚РѕРёРјРѕСЃС‚СЊ РѕС„РѕСЂРјР»РµРЅРёСЏ РІРёР·С‹
 
 , CONSTRAINT "fk_visa_tourist"
     FOREIGN KEY ("tourist_id")
@@ -137,11 +137,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Visa" TO "Admin" WITH GRANT
 
 
 
--- Таблица Родственные связи
+-- РўР°Р±Р»РёС†Р° Р РѕРґСЃС‚РІРµРЅРЅС‹Рµ СЃРІСЏР·Рё
 CREATE TABLE "Parent" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "parent_id" INT NOT NULL                                  -- Идентификатор родителя туриста
-, "child_id" INT NOT NULL                                   -- Идентификатор ребенка туриста
+, "parent_id" INT NOT NULL                                  -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЂРѕРґРёС‚РµР»СЏ С‚СѓСЂРёСЃС‚Р°
+, "child_id" INT NOT NULL                                   -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЂРµР±РµРЅРєР° С‚СѓСЂРёСЃС‚Р°
 
 , CONSTRAINT "check_parents_not_childs"
 	CHECK ("parent_id" <> "child_id")
@@ -170,10 +170,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Parent" TO "Admin" WITH GRA
 
 
 
--- Таблица Типы расходов
+-- РўР°Р±Р»РёС†Р° РўРёРїС‹ СЂР°СЃС…РѕРґРѕРІ
 CREATE TABLE "SpendingType" (
   "id" SMALLINT NOT NULL PRIMARY KEY IDENTITY
-, "name" VARCHAR(30) NOT NULL                               -- Название типа расходов
+, "name" VARCHAR(30) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ С‚РёРїР° СЂР°СЃС…РѕРґРѕРІ
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "SpendingType" TO "Admin" WITH GRANT OPTION;
@@ -182,14 +182,14 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "SpendingType" TO "Admin" WI
 
 
 
--- Таблица Расходы на туриста
+-- РўР°Р±Р»РёС†Р° Р Р°СЃС…РѕРґС‹ РЅР° С‚СѓСЂРёСЃС‚Р°
 CREATE TABLE "Spending" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "tourist_id" INT NOT NULL                                 -- Идентификатор туриста, на которого были потрачены деньги
-, "type_id" SMALLINT NOT NULL                               -- Идентификатор типа расходов
-, "cost" MONEY NOT NULL                                     -- Потраченая сумма
-, "date" DATETIME NOT NULL                                  -- Дата, когда деньги были потрачены
-, "description" VARCHAR(50) NOT NULL                        -- Краткое описание расходов
+, "tourist_id" INT NOT NULL                                 -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚СѓСЂРёСЃС‚Р°, РЅР° РєРѕС‚РѕСЂРѕРіРѕ Р±С‹Р»Рё РїРѕС‚СЂР°С‡РµРЅС‹ РґРµРЅСЊРіРё
+, "type_id" SMALLINT NOT NULL                               -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РёРїР° СЂР°СЃС…РѕРґРѕРІ
+, "cost" MONEY NOT NULL                                     -- РџРѕС‚СЂР°С‡РµРЅР°СЏ СЃСѓРјРјР°
+, "date" DATETIME NOT NULL                                  -- Р”Р°С‚Р°, РєРѕРіРґР° РґРµРЅСЊРіРё Р±С‹Р»Рё РїРѕС‚СЂР°С‡РµРЅС‹
+, "description" VARCHAR(50) NOT NULL                        -- РљСЂР°С‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ СЂР°СЃС…РѕРґРѕРІ
 
 , CONSTRAINT "fk_spending_tourist"
     FOREIGN KEY ("tourist_id")
@@ -210,10 +210,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Spending" TO "Admin" WITH G
 
 
 
--- Таблица Агентство экскурсий
+-- РўР°Р±Р»РёС†Р° РђРіРµРЅС‚СЃС‚РІРѕ СЌРєСЃРєСѓСЂСЃРёР№
 CREATE TABLE "ExcursionAgency" (
   "id" SMALLINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(50) NOT NULL                               -- Название агенства экскурсий
+, "name" VARCHAR(50) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ Р°РіРµРЅСЃС‚РІР° СЌРєСЃРєСѓСЂСЃРёР№
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "ExcursionAgency" TO "Admin" WITH GRANT OPTION;
@@ -223,12 +223,12 @@ GRANT SELECT ON "ExcursionAgency" TO "Web";
 
 
 
--- Таблица Экскурсии
+-- РўР°Р±Р»РёС†Р° Р­РєСЃРєСѓСЂСЃРёРё
 CREATE TABLE "Excursion" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "agency_id" SMALLINT NOT NULL                             -- Идентификатор агенства, которое организовывает экскурсию
-, "name" VARCHAR(50) NOT NULL                               -- Название экскурсии
-, "description" VARCHAR(300) NULL                           -- Краткое описание экскурсии
+, "agency_id" SMALLINT NOT NULL                             -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р°РіРµРЅСЃС‚РІР°, РєРѕС‚РѕСЂРѕРµ РѕСЂРіР°РЅРёР·РѕРІС‹РІР°РµС‚ СЌРєСЃРєСѓСЂСЃРёСЋ
+, "name" VARCHAR(50) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ СЌРєСЃРєСѓСЂСЃРёРё
+, "description" VARCHAR(300) NULL                           -- РљСЂР°С‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ СЌРєСЃРєСѓСЂСЃРёРё
 
 , CONSTRAINT "fk_excursion_agency"
     FOREIGN KEY ("agency_id")
@@ -244,12 +244,12 @@ GRANT SELECT ON "Excursion" TO "Web";
 
 
 
--- Таблица Расписание экскурсий
+-- РўР°Р±Р»РёС†Р° Р Р°СЃРїРёСЃР°РЅРёРµ СЌРєСЃРєСѓСЂСЃРёР№
 CREATE TABLE "ExcursionSchedule" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "excursion_id" INT NOT NULL                               -- Идентификатор экскурсии
-, "date" DATETIME NOT NULL                                  -- Дата проведения экскурсии
-, "cost" MONEY NOT NULL                                     -- Стоимость экскурсии
+, "excursion_id" INT NOT NULL                               -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЌРєСЃРєСѓСЂСЃРёРё
+, "date" DATETIME NOT NULL                                  -- Р”Р°С‚Р° РїСЂРѕРІРµРґРµРЅРёСЏ СЌРєСЃРєСѓСЂСЃРёРё
+, "cost" MONEY NOT NULL                                     -- РЎС‚РѕРёРјРѕСЃС‚СЊ СЌРєСЃРєСѓСЂСЃРёРё
 
 , CONSTRAINT "fk_excursionschedule_excursion"
     FOREIGN KEY ("excursion_id")
@@ -265,11 +265,11 @@ GRANT SELECT ON "ExcursionSchedule" TO "Web";
 
 
 
--- Таблица Посещение экскурсий
+-- РўР°Р±Р»РёС†Р° РџРѕСЃРµС‰РµРЅРёРµ СЌРєСЃРєСѓСЂСЃРёР№
 CREATE TABLE "ExcursionVisit" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "tourist_id" INT NOT NULL                                 -- Идентификатор туриста
-, "excursion_id" INT NOT NULL                               -- Идентификатор экскурсии (в расписании)
+, "tourist_id" INT NOT NULL                                 -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚СѓСЂРёСЃС‚Р°
+, "excursion_id" INT NOT NULL                               -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЌРєСЃРєСѓСЂСЃРёРё (РІ СЂР°СЃРїРёСЃР°РЅРёРё)
 
 , CONSTRAINT "fk_excursionvisit_tourist"
     FOREIGN KEY ("tourist_id")
@@ -290,10 +290,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON "ExcursionVisit" TO "ExcursionManager";
 
 
 
--- Таблица Город
+-- РўР°Р±Р»РёС†Р° Р“РѕСЂРѕРґ
 CREATE TABLE "City" (
   "id" SMALLINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(45) NOT NULL                               -- Название города
+, "name" VARCHAR(45) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ РіРѕСЂРѕРґР°
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "City" TO "Admin" WITH GRANT OPTION;
@@ -301,11 +301,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "City" TO "Admin" WITH GRANT
 
 
 
--- Таблица Отелей
+-- РўР°Р±Р»РёС†Р° РћС‚РµР»РµР№
 CREATE TABLE "Hotel" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(50) NOT NULL                               -- Название отеля
-, "city_id" SMALLINT NOT NULL                               -- Название города
+, "name" VARCHAR(50) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ РѕС‚РµР»СЏ
+, "city_id" SMALLINT NOT NULL                               -- РќР°Р·РІР°РЅРёРµ РіРѕСЂРѕРґР°
 
 , CONSTRAINT "fk_hotel_city"
     FOREIGN KEY ("city_id")
@@ -319,11 +319,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Hotel" TO "Admin" WITH GRAN
 
 
 
--- Таблица Номеров отелей
+-- РўР°Р±Р»РёС†Р° РќРѕРјРµСЂРѕРІ РѕС‚РµР»РµР№
 CREATE TABLE "Room" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "hotel_id" INT NOT NULL                                   -- Идентификатор отеля
-, "label" VARCHAR(30)                                       -- Код номера
+, "hotel_id" INT NOT NULL                                   -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕС‚РµР»СЏ
+, "label" VARCHAR(30)                                       -- РљРѕРґ РЅРѕРјРµСЂР°
 
 , CONSTRAINT "fk_room_hotel"
     FOREIGN KEY ("hotel_id")
@@ -337,14 +337,14 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Room" TO "Admin" WITH GRANT
 
 
 
--- Таблица Проживание
+-- РўР°Р±Р»РёС†Р° РџСЂРѕР¶РёРІР°РЅРёРµ
 CREATE TABLE "Residence" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
-, "tourist_id" INT NOT NULL                                 -- Идентификатор туриста
-, "room_id" INT NOT NULL                                    -- Идентификатор номера
-, "move_in" DATETIME NOT NULL                               -- Дата вселения в номер
-, "move_out" DATETIME NOT NULL                              -- Дата выселения из номера
-, "cost" MONEY NOT NULL                                     -- Стоимость проживания за сутки  
+, "tourist_id" INT NOT NULL                                 -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚СѓСЂРёСЃС‚Р°
+, "room_id" INT NOT NULL                                    -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РЅРѕРјРµСЂР°
+, "move_in" DATETIME NOT NULL                               -- Р”Р°С‚Р° РІСЃРµР»РµРЅРёСЏ РІ РЅРѕРјРµСЂ
+, "move_out" DATETIME NOT NULL                              -- Р”Р°С‚Р° РІС‹СЃРµР»РµРЅРёСЏ РёР· РЅРѕРјРµСЂР°
+, "cost" MONEY NOT NULL                                     -- РЎС‚РѕРёРјРѕСЃС‚СЊ РїСЂРѕР¶РёРІР°РЅРёСЏ Р·Р° СЃСѓС‚РєРё  
 
 , CONSTRAINT "fk_residence_tourist"
     FOREIGN KEY ("tourist_id")
@@ -364,10 +364,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Residence" TO "Admin" WITH 
 
 
 
--- Таблица Типы самолета
+-- РўР°Р±Р»РёС†Р° РўРёРїС‹ СЃР°РјРѕР»РµС‚Р°
 CREATE TABLE "PlaneType" (
   "id" TINYINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(30) NOT NULL                               -- Тип самолета
+, "name" VARCHAR(30) NOT NULL                               -- РўРёРї СЃР°РјРѕР»РµС‚Р°
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "PlaneType" TO "Admin" WITH GRANT OPTION;
@@ -376,11 +376,11 @@ GRANT SELECT ON "PlaneType" TO "Web";
 
 
 
--- Таблица Самолеты
+-- РўР°Р±Р»РёС†Р° РЎР°РјРѕР»РµС‚С‹
 CREATE TABLE "Plane" (
   "id" SMALLINT NOT NULL IDENTITY PRIMARY KEY
-, "name" VARCHAR(45) NOT NULL                               -- Название (код) самолета
-, "type_id" TINYINT NOT NULL                                -- Идентификатор типа самолета
+, "name" VARCHAR(45) NOT NULL                               -- РќР°Р·РІР°РЅРёРµ (РєРѕРґ) СЃР°РјРѕР»РµС‚Р°
+, "type_id" TINYINT NOT NULL                                -- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РёРїР° СЃР°РјРѕР»РµС‚Р°
 
 , CONSTRAINT "fk_plane_type"
     FOREIGN KEY ("type_id")
@@ -395,7 +395,7 @@ GRANT SELECT ON "Plane" TO "Web";
 
 
 
--- Таблица Расписание полетов
+-- РўР°Р±Р»РёС†Р° Р Р°СЃРїРёСЃР°РЅРёРµ РїРѕР»РµС‚РѕРІ
 CREATE TABLE "PlaneSchedule" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
 , "plane_id" SMALLINT NOT NULL                              -- 
@@ -420,7 +420,7 @@ GRANT SELECT ON "PlaneSchedule" TO "Web";
 
 
   
--- Таблица Перелет
+-- РўР°Р±Р»РёС†Р° РџРµСЂРµР»РµС‚
 CREATE TABLE "Flight" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
 , "tourist_id" INT NOT NULL
@@ -444,7 +444,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Flight" TO "Admin" WITH GRA
 
 
   
--- Таблица Тип багажа
+-- РўР°Р±Р»РёС†Р° РўРёРї Р±Р°РіР°Р¶Р°
 CREATE TABLE "BaggageType" (
   "id" SMALLINT NOT NULL IDENTITY PRIMARY KEY
 , "name" VARCHAR(45) NOT NULL
@@ -455,7 +455,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "BaggageType" TO "Admin" WIT
 
 
 
--- Таблица Багаж
+-- РўР°Р±Р»РёС†Р° Р‘Р°РіР°Р¶
 CREATE TABLE "Baggage" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
 , "tourist_flight_id" INT NOT NULL
@@ -487,7 +487,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON "Baggage" TO "Admin" WITH GR
 
 
 
--- Таблица Перевоз багажа
+-- РўР°Р±Р»РёС†Р° РџРµСЂРµРІРѕР· Р±Р°РіР°Р¶Р°
 CREATE TABLE "BaggageTransportation" (
   "id" INT NOT NULL IDENTITY PRIMARY KEY
 , "baggage_id" INT NOT NULL
