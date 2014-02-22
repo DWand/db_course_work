@@ -1,0 +1,30 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="print()">
+            <i class="fa fa-print"></i>
+            Друк
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="section-header">
+  <h4>Співвідношення між відпочиваючими туристами та shop-туристами</h4>
+</div>
+
+<p><strong>{{factor.value}}%</strong></p>

@@ -1,0 +1,65 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveRoom()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delRoom()">
+            <i class="fa fa-times-circle"></i>
+            Видалити номер
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+  <table class="table">
+  <caption>Інформація про номер</caption>
+  <tbody>
+    <tr>
+      <td class="span2">Назва</td>
+      <td><input type="text" ng-model="room.name.value"></td>
+    </tr>
+    <tr>
+      <td>Готель</td>
+      <td>{{room.hotel.value}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+
+<script type="text/ng-template" id="delRoomTpl">
+  <div class="modal-header">
+      <h3>Видалення номера</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Видалення - це необоротний процес, видалені данні відновленню не підлягають. Ви впевнені в тому,
+      що хочете видалити номер <strong>{{room.name.value}} ({{room.hotel.value}})</strong> з системи?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

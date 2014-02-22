@@ -1,0 +1,136 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveExc()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delExc()">
+            <i class="fa fa-times-circle"></i>
+            Видалити екскурсію
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addSchedule()">
+            <i class="fa fa-times-circle"></i>
+            Додати у розклад
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+  <table class="table">
+  <caption>Інформація про екскурсію</caption>
+  <tbody>
+    <tr>
+      <td class="span2">Назва</td>
+      <td><input type="text" ng-model="exc.name.value"></td>
+    </tr>
+    <tr>
+      <td>Опис</td>
+      <td><input type="text" ng-model="exc.description.value"></td>
+    </tr>
+    <tr>
+      <td>Агенство</td>
+      <td>
+        <select
+          ng-model="exc.agency_id.value" 
+          ng-options="agency.id.value as agency.name.value for agency in agencies"></select>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  
+  <table class="table table-striped table-hover">
+  <caption>Розклад екскурсії</caption>
+  <thead>
+    <tr>
+      <th>Дата</th>
+      <th>Вартість</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="search">
+      <td><input type="text" class="span12" ng-model="search.dateStr"></td>
+      <td><input type="text" class="span12" ng-model="search.cost"></td>
+    </tr>
+    <tr class="list-item" ng-click="showEntry(entry)"
+        ng-repeat="entry in schedule | filter:search" 
+        ng-init="entry.dateStr = ( entry.date.value | date:'dd.MM.yyyy HH:mm' )">
+      <td>{{entry.dateStr}}</td>
+      <td>{{entry.cost.value}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+
+<script type="text/ng-template" id="delExcTpl">
+  <div class="modal-header">
+      <h3>Видалення екскурсії</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити екскурсію
+      <strong>{{exc.name.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="addExcursionScheduleTpl">
+  <div class="modal-header">
+      <h3>Додавання екскурсії у розклад</h3>
+  </div>
+  <div class="modal-body datetime">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : newSch.date === undefined}">
+        <label class="control-label datetime">Дата та час</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="newSch.date" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+          
+          <span class="help-inline error" ng-show="newSch.date === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost.$error.required}">
+        <label class="control-label">Вартість</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost" name="cost" required>
+          <span class="help-inline error" ng-show="form.cost.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

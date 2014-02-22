@@ -1,0 +1,180 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand">
+        <i class="fa fa-home"></i>
+        Готелі
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="goBack()">
+            <i class="fa fa-chevron-left"></i>
+            Назад
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addCity()">
+            <i class="fa fa-plus"></i>
+            Додати місто
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addHotel()">
+            <i class="fa fa-plus"></i>
+            Додати готель
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+  <div class="span3">
+  
+    <table class="table table-striped table-hover">
+    <caption>Список міст у системі</caption>
+    <thead>
+      <tr>
+        <th>Назва</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="search">
+        <td><input type="text" class="span12" ng-model="search.city.name"></td>
+      </tr>
+      <tr class="list-item" ng-click="showAllHotels()">
+        <td><i class="fa fa-chevron-right pull-right"></i> Показати всі готелі</td>
+      </tr>
+      <tr ng-repeat="city in cities | filter:search.city" class="list-item" ng-click="showCity(city)">
+        <td class="dropdown">
+          {{city.name.value}}
+          <a href="" class="dropdown-toggle pull-right"><i class="fa fa-cog"></i></a>
+          <ul class="dropdown-menu pull-right">
+            <li><a ng-click="editCity(city); $event.stopPropagation();">Редагувати</a></li>
+            <li><a ng-click="delCity(city); $event.stopPropagation();">Видалити</a></li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    
+  </div>
+  
+  <div class="span9">
+    <table class="table table-striped table-hover">
+    <caption>Список готелів</caption>
+    <thead>
+      <tr>
+        <th>Назва</th>
+        <th>Місто</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="search">
+        <td><input type="text" class="span12" ng-model="search.hotel.name"></td>
+        <td><input type="text" class="span12" ng-model="search.hotel.city"></td>
+      </tr>
+      <tr ng-repeat="hotel in hotels | filter:search.hotel" class="list-item" ng-click="showHotel(hotel)">
+        <td>{{hotel.name.value}}</td>
+        <td>{{hotel.city.value}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/ng-template" id="addCityTpl">
+  <div class="modal-header">
+      <h3>Нове місто</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.name.$error.required}">
+        <label class="control-label">Назва міста</label>
+        <div class="controls">
+          <input type="text" ng-model="newCity.name" name="name" required>
+          <span class="help-inline error" ng-show="form.name.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="editCityTpl">
+  <div class="modal-header">
+      <h3>Редагування міста</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.name.$error.required}">
+        <label class="control-label">Назва міста</label>
+        <div class="controls">
+          <input type="text" ng-model="city.name.value" name="name" required>
+          <span class="help-inline error" ng-show="form.name.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="delCityTpl">
+  <div class="modal-header">
+      <h3>Видалення міста</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Видалення - це необоротний процес, видалені данні відновленню не підлягають. Ви впевнені в тому,
+      що хочете видалити місто <strong>{{city.name.value}}</strong> з системи?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addHotelTpl">
+  <div class="modal-header">
+      <h3>Новий готель</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.name.$error.required}">
+        <label class="control-label">Назва</label>
+        <div class="controls">
+          <input type="text" ng-model="newHotel.name" name="name" required>
+          <span class="help-inline error" ng-show="form.name.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      <div class="control-group" ng-class="{error : form.city.$error.required}">
+        <label class="control-label">Місто</label>
+        <div class="controls">
+          <select ng-model="newHotel.city" name="city" ng-options="city.name.value for city in cities" required></select>
+          <span class="help-inline error" ng-show="form.city.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

@@ -1,0 +1,101 @@
+body {
+  padding-top: 55px;
+  color: #444;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+#toast-container {
+  top: 55px;
+}
+
+label {
+  font-weight: bold;
+}
+
+caption {
+  text-align: left;
+  font-weight: bold;
+}
+
+.brand {
+  min-width: 125px;
+}
+
+.navbar ul li a {
+  padding: 10px 5px !important;
+}
+
+.navbar ul li a:hover {
+  color: #0088CC !important;
+}
+
+.row-fluid.controls {
+  padding: 5px 0 10px;
+}
+
+.row-fluid.controls .btn{
+  padding: 20px;
+}
+
+.section-header {
+  border-bottom: 1px solid #eee;
+}
+
+.section-header h5 {
+  padding: 10px 0 5px;
+  margin: 0;
+}
+
+.list-item {
+  cursor: pointer;
+  color: #444;
+}
+
+.list-item:hover {
+  color: #000;
+}
+
+.danger:hover {
+  color: #bd362f !important;
+}
+
+.fa.pull-right {
+  line-height: inherit;
+}
+
+tr.search td input[type=text] {
+  margin: 0;
+}
+
+table td input[type=text] {
+  margin: 0;
+}
+
+a.dropdown-toggle {
+  color: #444;
+}
+
+a.dropdown-toggle:hover {
+  color: #0088CC;
+}
+
+.modal-body.alert {
+  margin: 0;
+}
+
+.modal-body.datetime {
+  min-height: 300px;
+}
+
+.control-label.datetime {
+  margin-top: 35px;
+}
+
+table.form-inline td {
+  padding: 2px !important;
+  border: 0px !important;
+  text-align: center;
+}

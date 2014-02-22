@@ -1,0 +1,20 @@
+{
+  "name" : "tourists_agency",
+  "version" : "1.0.0",
+  "description" : "Курсова робота з дисципліни Бази даних",
+  "author" : {
+    "name": "Причиненко М.А."
+  },
+  "private": true,
+  "dependencies": {
+    "tedious": ""
+  },
+  "main": "app/index.htm",
+  "window": {
+    "width": 1000,
+    "height": 800,
+    "min_width": 800,
+    "min_height": 600,
+    "toolbar": false
+  }
+}

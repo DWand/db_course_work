@@ -1,0 +1,157 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left "></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveClient()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delClient()">
+            <i class="fa fa-times-circle"></i>
+            Видалити клієнта
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addTour()">
+            <i class="fa fa-plus"></i>
+            Додати тур
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section>
+  
+  <table class="table">
+  <caption>Інформація про клієнта</caption>
+  <tbody>
+    <tr>
+      <td class="span2">Прізвище</td>
+      <td><input type="text" ng-model="client.surname.value"></td>
+    </tr>
+    <tr>
+      <td>Ім'я</td>
+      <td><input type="text" ng-model="client.name.value"></td>
+    </tr>
+    <tr>
+      <td>По батькові</td>
+      <td><input type="text" ng-model="client.patronymic.value"></td>
+    </tr>
+    <tr>
+      <td>Стать</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" ng-model="client.sex_id.value" btn-radio="1"><i class="fa fa-male"></i> Чоловіча</button>
+          <button type="button" class="btn btn-default" ng-model="client.sex_id.value" btn-radio="2"><i class="fa fa-female"></i> Жіноча</button>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Дата народження</td>
+      <td>
+        <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="client.birthday.value" 
+         show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+      </td>
+    </tr>
+    <tr>
+      <td>Паспорт</td>
+      <td><input type="text" ng-model="client.passport.value"></td>
+    </tr>
+    <tr>
+      <td>Був в країні разів</td>
+      <td>{{countryVisits}}</td>
+    </tr>
+  </tbody>
+  </table>
+  
+  <table class="table table-hover">
+  <caption>Інформація про тури</caption>
+  <thead>
+    <tr>
+      <th>Дати</th>
+      <th>Категорія</th>
+      <th>Група</th>
+      <th>Вартість</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="tour in tours" ng-click="showTour(tour)" class="list-item">
+      <td>{{tour.date_in.value | date:'dd.MM.yyyy'}} - {{tour.date_out.value | date:'dd.MM.yyyy'}}</td>
+      <td>{{tour.category.value}}</td>
+      <td>{{tour.group.value}}</td>
+      <td>{{tour.paid.value}}</td>
+    </tr>
+  </tbody>
+  </table>
+</section>
+
+
+<script type="text/ng-template" id="delClientTpl">
+  <div class="modal-header">
+      <h3>Видалення клієнта</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити клієнта 
+      <strong>{{client.surname.value}} {{client.name.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="addTourForClientTpl">
+  <div class="modal-header">
+      <h3>Новий тур</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.group.$error.required}">
+        <label class="control-label">Група</label>
+        <div class="controls">
+          <select ng-model="newTour.group" name="group" ng-options="group.label.value for group in groups" required></select>
+          <span class="help-inline error" ng-show="form.group.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      <div class="control-group" ng-class="{error : form.category.$error.required}">
+        <label class="control-label">Категорія</label>
+        <div class="controls">
+          <select ng-model="newTour.category" name="category" ng-options="category.name.value for category in categories" required></select>
+          <span class="help-inline error" ng-show="form.category.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      <div class="control-group" ng-class="{error : form.cost.$error.required}">
+        <label class="control-label">Ціна туру</label>
+        <div class="controls">
+          <input type="number" ng-model="newTour.cost" name="cost" required></select>
+          <span class="help-inline error" ng-show="form.cost.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

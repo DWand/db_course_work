@@ -1,0 +1,365 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left "></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveTour()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delTour()">
+            <i class="fa fa-times-circle"></i>
+            Видалити тур
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+<caption>Дані про туриста</caption>
+<tbody>
+  <tr>
+    <td class="span2">Прізвище</td>
+    <td>{{tourist.surname.value}}</td>
+  </tr>
+  <tr>
+    <td>Ім'я</td>
+    <td>{{tourist.name.value}}</td>
+  </tr>
+  <tr>
+    <td>По батькові</td>
+    <td>{{tourist.patronymic.value}}</td>
+  </tr>
+  <tr>
+    <td>Стать</td>
+    <td>{{tourist.sex.value}}</td>
+  </tr>
+  <tr>
+    <td>Дата народження</td>
+    <td>{{tourist.birthday.value | date:'dd.MM.yyyy'}}</td>
+  </tr>
+  <tr>
+    <td>Паспорт</td>
+    <td>{{tourist.passport.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>Дані про тур</caption>
+<tbody>
+  <tr>
+    <td class="span2">Група</td>
+    <td>
+      <select
+        ng-model="tourist.group_id.value"
+        ng-options="group.id.value as group.label.value for group in groups" required></select>
+    </td>
+  </tr>
+  <tr>
+    <td>Категорія</td>
+    <td>
+      <select 
+        ng-model="tourist.category_id.value"
+        ng-options="category.id.value as category.name.value for category in categories" required></select>
+    </td>
+  </tr>
+  <tr>
+    <td>Вартість</td>
+    <td><input type="text" ng-model="tourist.paid.value"></td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-hover">
+<caption>
+  Батьки
+  <a href="" class="pull-right" ng-click="addParent()">
+    <i class="fa fa-plus"></i>
+    Додати
+  </a>
+</caption>
+<tbody>
+  <tr class="list-item"
+      ng-repeat="parent in parents" 
+      ng-init="parent.birthdayStr = ( parent.birthday.value | date:'dd.MM.yyyy' )">
+    <td ng-click="showTourist(parent)">{{parent.surname.value}}</td>
+    <td ng-click="showTourist(parent)">{{parent.name.value}}</td>
+    <td ng-click="showTourist(parent)">{{parent.patronymic.value}}</td>
+    <td ng-click="showTourist(parent)">{{parent.passport.value}}</td>
+    <td ng-click="showTourist(parent)">{{parent.birthdayStr}}</td>
+    <td><a href="" class="pull-right" ng-click="removeParent(parent)"><i class="fa fa-minus"></i> Видалити</a></td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-hover">
+<caption>
+  Діти
+  <a href="" class="pull-right" ng-click="addChild()">
+    <i class="fa fa-plus"></i>
+    Додати
+  </a>
+</caption>
+<tbody>
+  <tr class="list-item"
+      ng-repeat="child in children" 
+      ng-init="child.birthdayStr = ( child.birthday.value | date:'dd.MM.yyyy' )">
+    <td ng-click="showTourist(child)">{{child.surname.value}}</td>
+    <td ng-click="showTourist(child)">{{child.name.value}}</td>
+    <td ng-click="showTourist(child)">{{child.patronymic.value}}</td>
+    <td ng-click="showTourist(child)">{{child.passport.value}}</td>
+    <td ng-click="showTourist(child)">{{child.birthdayStr}}</td>
+    <td><a href="" class="pull-right" ng-click="removeChild(child)"><i class="fa fa-minus"></i> Видалити</a></td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-hover">
+<caption>
+  Проживання
+  <a href="" class="pull-right" ng-click="addResidence()">
+    <i class="fa fa-plus"></i>
+    Додати проживання
+  </a>
+</caption>
+<thead>
+  <tr>
+    <th>Готель</th>
+    <th>Кімната</th>
+    <th>Заїзд</th>
+    <th>Виїзд</th>
+    <th>Вартість</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="hotel in hotels" class="list-item" ng-click="showResidence(hotel)">
+    <td>{{hotel.hotel_name.value}}</td>
+    <td>{{hotel.room_label.value}}</td>
+    <td>{{hotel.move_in.value | date:'dd.MM.yyyy'}}</td>
+    <td>{{hotel.move_out.value | date:'dd.MM.yyyy'}}</td>
+    <td>{{hotel.cost.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>
+  Екскурсії
+  <a href="" class="pull-right" ng-click="addExcursion()">
+    <i class="fa fa-plus"></i>
+    Додати екскурсію
+  </a>
+</caption>
+<thead>
+  <tr>
+    <th>Агенство</th>
+    <th>Назва</th>
+    <th>Дата</th>
+    <th>Вартість</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="exc in excursions">
+    <td>{{exc.agency_name.value}}</td>
+    <td>{{exc.excursion_name.value}}</td>
+    <td>{{exc.date.value | date:'dd.MM.yyyy'}}</td>
+    <td>{{exc.cost.value}}</td>
+    <td><a href="" class="pull-right" ng-click="delExcursion(exc)"><i class="fa fa-minus"></i> Видалити</a></td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-hover">
+<caption>
+  Перельоти
+  <a href="" class="pull-right" ng-click="addFlight()">
+    <i class="fa fa-plus"></i>
+    Додати переліт
+  </a>
+</caption>
+<thead>
+  <tr>
+    <th>Рейс</th>
+    <th>Дата вильоту</th>
+    <th>Дата посадки</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="flight in flights" class="list-item" ng-click="showFlight(flight)">
+    <td>{{flight.name.value}}</td>
+    <td>{{flight.takeoff_date.value | date:'dd.MM.yyyy HH:mm'}}</td>
+    <td>{{flight.landing_date.value | date:'dd.MM.yyyy HH:mm'}}</td>
+  </tr>
+</tbody>
+</table>
+
+
+<script type="text/ng-template" id="delTourTpl">
+  <div class="modal-header">
+      <h3>Видалення тура</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити тур?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="addFamilyMemberTpl">
+  <div class="modal-header">
+      <h3>Додати члена сім'ї</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : form.human.$error.required}">
+        <label class="control-label">Оберіть людину</label>
+        <div class="controls">
+          <select ng-model="member.human" name="human" ng-options="tourist as ( tourist.surname.value + ' ' + tourist.name.value + ' ' + tourist.patronymic.value) for tourist in touristList" required></select>
+          <span class="help-inline error" ng-show="form.human.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addFlightForTourTpl">
+  <div class="modal-header">
+      <h3>Новий переліт</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.flight.$error.required}">
+        <label class="control-label">Рейс</label>
+        <div class="controls">
+          <select ng-model="newFlight.flight" name="flight" ng-options="flight.name.value for flight in flightList" required></select>
+          <span class="help-inline error" ng-show="form.flight.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addResidenceTpl">
+  <div class="modal-header">
+      <h3>Нове місце проживання</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : form.hotel.$error.required}">
+        <label class="control-label">Готель</label>
+        <div class="controls">
+          <select ng-model="newRes.hotel" name="hotel" ng-options="hotel as hotel.name.value for hotel in hotelList" required></select>
+          <span class="help-inline error" ng-show="form.hotel.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.room.$error.required}">
+        <label class="control-label">Номер</label>
+        <div class="controls">
+          <select 
+            ng-model="newRes.room" name="room"
+            ng-options="room as room.name.value for room in roomList | filter:{hotel_id.value : newRes.hotel.id.value}" required></select>
+          <span class="help-inline error" ng-show="form.room.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+            
+      <div class="control-group" ng-class="{error : newRes.move_in === undefined}">
+        <label class="control-label datetime">Заїзд</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="newRes.move_in" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+          <span class="help-inline error" ng-show="newRes.move_in === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : newRes.move_out === undefined}">
+        <label class="control-label datetime">Виїзд</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="newRes.move_out" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+          <span class="help-inline error" ng-show="newRes.move_out === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost.$error.required}">
+        <label class="control-label">Ціна</label>
+        <div class="controls">
+          <input type="number" ng-model="newRes.cost" name="cost" required>
+          <span class="help-inline error" ng-show="form.cost.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addExcursionVisitTpl">
+  <div class="modal-header">
+      <h3>Нова екскурсія</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : form.agency.$error.required}">
+        <label class="control-label">Агенство</label>
+        <div class="controls">
+          <select ng-model="newExc.agency" name="agency" ng-options="agency as agency.name.value for agency in agencyList" required></select>
+          <span class="help-inline error" ng-show="form.agency.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.excursion.$error.required}">
+        <label class="control-label">Екскурсія</label>
+        <div class="controls">
+          <select 
+            ng-model="newExc.excursion" name="excursion"
+            ng-options="excursion as excursion.name.value for excursion in excursionList | filter:{agency_id.value : newExc.agency.id.value}" required></select>
+          <span class="help-inline error" ng-show="form.excursion.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

@@ -1,0 +1,133 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left "></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveResidence()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delResidence()">
+            <i class="fa fa-times-circle"></i>
+            Видалити проживання
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+<caption>Дані про туриста</caption>
+<tbody>
+  <tr>
+    <td class="span2">Прізвище</td>
+    <td>{{tourist.surname.value}}</td>
+  </tr>
+  <tr>
+    <td>Ім'я</td>
+    <td>{{tourist.name.value}}</td>
+  </tr>
+  <tr>
+    <td>По батькові</td>
+    <td>{{tourist.patronymic.value}}</td>
+  </tr>
+  <tr>
+    <td>Стать</td>
+    <td>{{tourist.sex.value}}</td>
+  </tr>
+  <tr>
+    <td>Дата народження</td>
+    <td>{{tourist.birthday.value | date:'dd.MM.yyyy'}}</td>
+  </tr>
+  <tr>
+    <td>Паспорт</td>
+    <td>{{tourist.passport.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>Дані про тур</caption>
+<tbody>
+  <tr>
+    <td class="span2">Група</td>
+    <td>{{tourist.group.value}}</td>
+  </tr>
+  <tr>
+    <td>Категорія</td>
+    <td>{{tourist.category.value}}</td>
+  </tr>
+  <tr>
+    <td>Вартість</td>
+    <td>{{tourist.paid.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<section>
+<table class="table">
+<caption>Проживання</caption>
+<tbody>
+  <tr>
+    <td class="span2">Готель</td>
+    <td>
+      <select ng-model="hotel.hotel_id.value" ng-options="hotel.id.value as hotel.name.value for hotel in hotels" required></select>
+    </td>
+  </tr>
+  <tr>
+    <td>Номер</td>
+    <td>
+      <select ng-model="hotel.room_id.value" ng-options="room.id.value as room.name.value for room in rooms | filter:{hotel_id : hotel.hotel_id.value}" required></select>
+    </td>
+  </tr>
+  <tr>
+    <td>Заїзд</td>
+    <td>
+      <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="hotel.move_in.value" 
+       show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+    </td>
+  </tr>
+  <tr>
+    <td>Виїзд</td>
+    <td><datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="hotel.move_out.value" 
+       show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+    </td>
+  </tr>
+  <tr>
+    <td>Вартість</td>
+    <td><input type="text" ng-model="hotel.cost.value"></td>
+  </tr>
+</tbody>
+</table>
+</section>
+
+
+<script type="text/ng-template" id="delResidenceTpl">
+  <div class="modal-header">
+      <h3>Видалення проживання</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити проживання?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

@@ -1,0 +1,91 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveGroup()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delGroup()">
+            <i class="fa fa-times-circle"></i>
+            Видалити групу
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+  <table class="table table-striped table-hover">
+  <caption>Інформація про групу</caption>
+  <tbody>
+    <tr>
+      <td class="span2">Назва</td>
+      <td><input type="text" ng-model="group.label.value"></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <table class="table table-striped table-hover">
+  <caption>Список туристів в групі</caption>
+  <thead>
+    <tr>
+      <th>Прізвище</th>
+      <th>Ім'я</th>
+      <th>По батькові</th>
+      <th>Паспорт</th>
+      <th>Дата народження</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="search">
+      <td><input type="text" class="span12" ng-model="search.surname"></td>
+      <td><input type="text" class="span12" ng-model="search.name"></td>
+      <td><input type="text" class="span12" ng-model="search.patronymic"></td>
+      <td><input type="text" class="span12" ng-model="search.passport"></td>
+      <td><input type="text" class="span12" ng-model="search.birthdayStr"></td>
+    </tr>
+    <tr class="list-item" ng-click="showTour(tour)"
+        ng-repeat="tour in tourists | filter:search" 
+        ng-init="tour.birthdayStr = ( tour.birthday.value | date:'dd.MM.yyyy' )">
+      <td>{{tour.surname.value}}</td>
+      <td>{{tour.name.value}}</td>
+      <td>{{tour.patronymic.value}}</td>
+      <td>{{tour.passport.value}}</td>
+      <td>{{tour.birthdayStr}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+<script type="text/ng-template" id="delGroupTpl">
+  <div class="modal-header">
+      <h3>Видалення групи</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити групу 
+      <strong>{{group.label.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

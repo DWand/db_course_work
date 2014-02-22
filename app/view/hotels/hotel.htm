@@ -1,0 +1,110 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveHotel()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delHotel()">
+            <i class="fa fa-times-circle"></i>
+            Видалити готель
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addRoom()">
+            <i class="fa fa-plus"></i>
+            Додати номер
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+  <table class="table">
+  <caption>Інформація про готель</caption>
+  <tbody>
+    <tr>
+      <td class="span2">Назва</td>
+      <td><input type="text" ng-model="hotel.name.value"></td>
+    </tr>
+    <tr>
+      <td>Місто</td>
+      <td>
+        <select
+          ng-model="hotel.city_id.value"
+          ng-options="city.id.value as city.name.value for city in cities"></select>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+
+  <table class="table table-striped table-hover">
+  <caption>Список номерів</caption>
+  <tbody>
+    <tr class="search">
+      <td><input type="text" class="span12" ng-model="search"></td>
+    </tr>
+    <tr ng-repeat="room in rooms | filter:search" ng-click="showRoom(room)">
+      <td class="list-item">{{room.name.value}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+
+<script type="text/ng-template" id="addRoomTpl">
+  <div class="modal-header">
+      <h3>Новий номер</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.name.$error.required}">
+        <label class="control-label">Назва номеру</label>
+        <div class="controls">
+          <input type="text" ng-model="newRoom.name" name="name" required>
+          <span class="help-inline error" ng-show="form.name.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="delHotelTpl">
+  <div class="modal-header">
+      <h3>Видалення готеля</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Видалення - це необоротний процес, видалені данні відновленню не підлягають. Ви впевнені в тому,
+      що хочете видалити готель <strong>{{hotel.name.value}} ({{hotel.city.value}})</strong> з системи?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

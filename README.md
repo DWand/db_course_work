@@ -1,2 +1,7 @@
-db_course_work
-==============
+Database desktop client
+
+Language: Ukrainian
+
+**Requirements**
+node-webkit
+MS SQL Server

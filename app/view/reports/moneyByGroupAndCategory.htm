@@ -1,0 +1,94 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="print()">
+            <i class="fa fa-print"></i>
+            Друк
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+
+  <div class="span3">
+    <section>
+      <div class="section-header">
+        <h5>Категорії</h5>
+      </div>
+    
+      <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="cat in categories">
+          <a class="list-item" ng-click="showCategory(cat)">
+            <span class="fa fa-group"><span> {{cat.name.value}}
+          </a>
+        </li>
+      </ul>
+    </section>
+    
+    <section>
+      <div class="section-header">
+        <h5>Групи</h5>
+      </div>
+    
+      <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="group in groups">
+          <a class="list-item" ng-click="showGroup(group)">
+            <span class="fa fa-group"><span> {{group.label.value}}
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="span9">
+    <div class="section-header">
+      <h4>Повний фінансовий звіт для групи {{group.label.value}} по категорії {{category.name.value}}</h4>
+    </div>
+    
+    <table class="table">
+    <tbody>
+      <tr>
+        <td>Оформлення віз</td>
+        <td>{{report.visa.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Екскурсії</td>
+        <td>{{report.excursions.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Літаки</td>
+        <td>{{report.planes.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Розселення</td>
+        <td>{{report.residence.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Додаткові</td>
+        <td>{{report.additional.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Надходження</td>
+        <td>{{report.income.value || 0}}</td>
+      </tr>
+    </tbody>
+    </table>
+    
+  </div>
+
+</div>

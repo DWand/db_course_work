@@ -1,0 +1,191 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="saveFlight()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delFlight()">
+            <i class="fa fa-times-circle"></i>
+            Видалити рейс
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="print()">
+            <i class="fa fa-print"></i>
+            Друк
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+<caption>Інформація про рейс</caption>
+<tbody>
+  <tr>
+    <td class="span3">Назва</td>
+    <td>{{flight.name.value}}</td>
+  </tr>
+  <tr>
+    <td>Літак</td>
+    <td>
+      <select 
+        ng-model="flight.plane_id.value"
+        ng-options="plane.id.value as plane.name.value for plane in planes"></select>
+    </td>
+  </tr>
+  <tr>
+    <td>Дата зльоту</td>
+    <td>
+      <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="flight.takeoff_date.value" 
+        show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+    </td>
+  </tr>
+  <tr>
+    <td>Дата посадки</td>
+    <td>
+      <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="flight.landing_date.value" 
+        show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+    </td>
+  </tr>
+  <tr>
+    <td>Вартість завантаження</td>
+    <td><input type="text" ng-model="flight.loading_cost.value"></td>
+  </tr>
+  <tr>
+    <td>Вартість розвантаження</td>
+    <td><input type="text" ng-model="flight.unloading_cost.value"></td>
+  </tr>
+  <tr>
+    <td>Вартість зльоту</td>
+    <td><input type="text" ng-model="flight.takeoff_cost.value"></td>
+  </tr>
+  <tr>
+    <td>Вартість посадки</td>
+    <td><input type="text" ng-model="flight.landing_cost.value"></td>
+  </tr>
+  <tr>
+    <td>Вартість диспетчера</td>
+    <td><input type="text" ng-model="flight.dispetcher_cost.value"></td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>Статистика</caption>
+<tbody>
+  <tr>
+    <td class="span3">Кількість пасажирів</td>
+    <td>{{flightStat.people_amount.value}}</td>
+  </tr>
+  <tr>
+    <td>Вага вантажу</td>
+    <td>{{flightStat.baggage_weight.value}}</td>
+  </tr>
+  <tr>
+    <td>Об'ємна вага вантажу</td>
+    <td>{{flightStat.volume_weight.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<div class="row-fluid">
+  <div class="span6">
+    <table class="table table-striped table-hover">
+    <caption>Список груп пасажирів</caption>
+    <thead>
+      <tr>
+        <th>Назва групи</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="group in groups" class="list-item" ng-click="showGroup(group)">
+        <td>{{group.label.value}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  
+  <div class="span6">
+    <table class="table table-striped table-hover">
+    <caption>Список розселення</caption>
+    <thead>
+      <tr>
+        <th>Готель</th>
+        <th>Місто</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="hotel in hotels" class="list-item" ng-click="showHotel(hotel)">
+        <td>{{hotel.name.value}}</td>
+        <td>{{hotel.city.value}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+
+<table class="table table-striped">
+<caption>Вантаж пасажирів рейсу</caption>
+<thead>
+  <tr>
+    <th>Id</th>
+    <th>Тип</th>
+    <th>Вартість</th>
+    <th>Вага</th>
+    <th>Об'єм</th>
+    <th>Упаковка</th>
+    <th>Страховка</th>
+    <th>Зберігання</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="bag in baggages">
+    <td>{{bag.id.value}}</td>
+    <td>{{bag.type.value}}</td>
+    <td>{{bag.self_cost.value}}</td>
+    <td>{{bag.weight.value}}</td>
+    <td>{{bag.space_amount.value}}</td>
+    <td>{{bag.packing_cost.value}}</td>
+    <td>{{bag.insurance_cost.value}}</td>
+    <td>{{bag.keep_cost.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+
+<script type="text/ng-template" id="delFlightTpl">
+  <div class="modal-header">
+      <h3>Видалення рейса</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити рейс
+      <strong>{{flight.name.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

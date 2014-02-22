@@ -1,0 +1,68 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="print()">
+            <i class="fa fa-print"></i>
+            Друк
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="section-header">
+  <h4>Найпопулярніші екскурсії</h4>
+</div>
+
+<section>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Екскурсія</th>
+        <th>Агенство</th>
+        <th>Відвідувань</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="exc in excursions">
+        <td>{{ exc.name }}</td>
+        <td>{{ exc.agencyName }}</td>
+        <td>{{ exc.visits }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="section-header">
+  <h4>Найкращі екскурсійні агенства</h4>
+</div>
+
+<section>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Агенство</th>
+        <th>Відвідувань</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="agency in agencies">
+        <td>{{ agency.name }}</td>
+        <td>{{ agency.visits }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,243 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left "></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="delFlight()">
+            <i class="fa fa-times-circle"></i>
+            Видалити переліт
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+<caption>Дані про туриста</caption>
+<tbody>
+  <tr>
+    <td class="span2">Прізвище</td>
+    <td>{{tourist.surname.value}}</td>
+  </tr>
+  <tr>
+    <td>Ім'я</td>
+    <td>{{tourist.name.value}}</td>
+  </tr>
+  <tr>
+    <td>По батькові</td>
+    <td>{{tourist.patronymic.value}}</td>
+  </tr>
+  <tr>
+    <td>Стать</td>
+    <td>{{tourist.sex.value}}</td>
+  </tr>
+  <tr>
+    <td>Дата народження</td>
+    <td>{{tourist.birthday.value | date:'dd.MM.yyyy'}}</td>
+  </tr>
+  <tr>
+    <td>Паспорт</td>
+    <td>{{tourist.passport.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>Дані про тур</caption>
+<tbody>
+  <tr>
+    <td class="span2">Група</td>
+    <td>{{tourist.group.value}}</td>
+  </tr>
+  <tr>
+    <td>Категорія</td>
+    <td>{{tourist.category.value}}</td>
+  </tr>
+  <tr>
+    <td>Вартість</td>
+    <td>{{tourist.paid.value}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table">
+<caption>Дані про переліт</caption>
+<tbody>
+  <tr>
+    <td class="span2">Рейс</td>
+    <td>{{flight.name.value}}</td>
+  </tr>
+  <tr>
+    <td>Дата вильоту</td>
+    <td>{{flight.takeoff_date.value | date:'dd.MM.yyyy HH:mm'}}</td>
+  </tr>
+  <tr>
+    <td>Дата приземлення</td>
+    <td>{{flight.landing_date.value | date:'dd.MM.yyyy HH:mm'}}</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-striped">
+<caption>
+  Дані про багаж
+  <a href="" class="pull-right" ng-click="addBaggage()">
+    <i class="fa fa-plus"></i>
+    Додати
+  </a>
+</caption>
+<thead>
+  <tr>
+    <th>Id</th>
+    <th>Тип</th>
+    <th>Вартість</th>
+    <th>Вага</th>
+    <th>Об'єм</th>
+    <th>Упаковка</th>
+    <th>Страховка</th>
+    <th>Зберігання</th>
+    <th>Перевезення</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="bag in baggage">
+    <td>{{bag.id.value}}</td>
+    <td>{{bag.type.value}}</td>
+    <td>{{bag.self_cost.value}}</td>
+    <td>{{bag.weight.value}}</td>
+    <td>{{bag.space_amount.value}}</td>
+    <td>{{bag.packing_cost.value}}</td>
+    <td>{{bag.insurance_cost.value}}</td>
+    <td>{{bag.keep_cost.value}}</td>
+    <td>{{bag.baggage_plane.value}}</td>
+    <td><a href="" ng-click="removeBaggage(bag)"><i class="fa fa-minus"></i> Видалити</a></td>
+  </tr>
+</tbody>
+</table>
+
+
+<script type="text/ng-template" id="delTouristFlightTpl">
+  <div class="modal-header">
+      <h3>Видалення перельоту</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити переліт
+      <strong>{{flight.name.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addBaggageTpl">
+  <div class="modal-header">
+      <h3>Додати багаж</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : form.type.$error.required}">
+        <label class="control-label">Тип</label>
+        <div class="controls">
+          <select ng-model="bag.type" name="type" ng-options="type as type.name.value for type in typeList" required></select>
+          <span class="help-inline error" ng-show="form.type.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+            
+      <div class="control-group" ng-class="{error : bag.store_in === undefined}">
+        <label class="control-label datetime">Надходження на склад</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="bag.store_in" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+          <span class="help-inline error" ng-show="bag.store_in === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : bag.store_out === undefined}">
+        <label class="control-label datetime">Вивезення зі складу</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="bag.store_out" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+          <span class="help-inline error" ng-show="bag.store_out === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost.$error.required}">
+        <label class="control-label">Вартість</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.cost" name="cost" required>
+          <span class="help-inline error" ng-show="form.cost.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.weight.$error.required}">
+        <label class="control-label">Вага</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.weight" name="weight" required>
+          <span class="help-inline error" ng-show="form.weight.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.space_amount.$error.required}">
+        <label class="control-label">Об'єм</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.space_amount" name="space_amount" required>
+          <span class="help-inline error" ng-show="form.space_amount.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.packing.$error.required}">
+        <label class="control-label">Упаковка</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.packing" name="packing" required>
+          <span class="help-inline error" ng-show="form.packing.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.insurance.$error.required}">
+        <label class="control-label">Страховка</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.insurance" name="insurance" required>
+          <span class="help-inline error" ng-show="form.insurance.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.keep.$error.required}">
+        <label class="control-label">Зберігання</label>
+        <div class="controls">
+          <input type="number" ng-model="bag.keep" name="keep" required>
+          <span class="help-inline error" ng-show="form.keep.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.flight.$error.required}">
+        <label class="control-label">Рейс</label>
+        <div class="controls">
+          <select ng-model="bag.flight" name="flight" ng-options="flight as flight.name.value for flight in flightList" required></select>
+          <span class="help-inline error" ng-show="form.flight.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

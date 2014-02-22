@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="dbm">
+
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/toaster.css">
+  <link rel="stylesheet" href="css/datetimepicker.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <title>Менеджер туристичного агенства</title>
+</head>
+
+<body>
+  <toaster-container></toaster-container>
+
+  
+  <div class="container-fluid" ng-controller="appCtrl">
+    <ng-view></ng-view>
+  </div>
+  
+  <script src="js/lib/angular.min.js"></script>
+  <script src="js/lib/angular-animate.min.js"></script>
+  <script src="js/lib/angular-route.min.js"></script>
+  <script src="js/lib/ui-bootstrap-tpls-0.6.0.js"></script>
+  <script src="js/lib/toaster.js"></script>
+  <script src="js/lib/datetimepicker.js"></script>
+  <script src="js/modules/db.js"></script>
+  <script src="js/modules/connection.js"></script>
+  <script src="js/modules/router.js"></script>
+  
+  <script src="js/modules/sections/clients.js"></script>
+  <script src="js/modules/sections/groups.js"></script>
+  <script src="js/modules/sections/agencies.js"></script>
+  <script src="js/modules/sections/hotels.js"></script>
+  <script src="js/modules/sections/planes.js"></script>
+  <script src="js/modules/sections/reports.js"></script>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>

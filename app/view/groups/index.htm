@@ -1,0 +1,72 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand">
+        <i class="fa fa-users"></i>
+        Групи
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="goBack()">
+            <i class="fa fa-chevron-left"></i>
+            Назад
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addGroup()">
+            <i class="fa fa-plus"></i>
+            Додати групу
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+<table class="table table-striped table-hover">
+<caption>Список груп в системі</caption>
+<thead>
+  <tr>
+    <th>Назва групи</th>
+  </tr>
+</thead>
+<tbody>
+  <tr class="search">
+    <td><input type="text" class="span12" ng-model="search.label"></td>
+  </tr>
+  <tr ng-repeat="group in groups | filter:search" class="list-item" ng-click="showGroup(group)">
+    <td>{{group.label.value}}</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+<script type="text/ng-template" id="addGroupTpl">
+  <div class="modal-header">
+      <h3>Нова група</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="form">
+      <div class="control-group" ng-class="{error : form.name.$error.required}">
+        <label class="control-label">Назва групи</label>
+        <div class="controls">
+          <input type="text" ng-model="newGroup.name" name="name" required>
+          <span class="help-inline error" ng-show="form.name.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>

@@ -1,0 +1,167 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="print()">
+            <i class="fa fa-print"></i>
+            Друк
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="row-fluid">
+
+  <div class="span3">
+    <section>
+      <div class="section-header">
+        <h5>Початок</h5>
+      </div>
+      <input type="date" ng-model="begin">
+    </section>
+    
+    <section>
+      <div class="section-header">
+        <h5>Кінець</h5>
+      </div>
+      <input type="date" ng-model="end">
+    </section>
+    
+    <button class="btn btn-default" ng-click="generate()">Згенерувати</button>
+  </div>
+
+  <div class="span9">
+    <div class="section-header">
+      <h4>Повний звіт за період {{begin}} - {{end}}</h4>
+    </div>
+    
+    <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td class="span3">В країні побувало</td>
+        <td>{{touristsAmount.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Екскурсії замовляли разів</td>
+        <td>{{excursionVisits.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Відпочинок / магазини</td>
+        <td>{{factor.value || 0}}%</td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Готель</th>
+        <th>Кількість клієнтів</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="hotel in hotels">
+        <td class="span3">{{hotel.hotel_name.value}}</td>
+        <td>{{hotel.occupied_rooms.value}}</td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <table class="table table-striped">
+    <caption>Склад</caption>
+    <tbody>
+      <tr>
+        <td class="span3">Кількість об'ємних місць</td>
+        <td>{{baggage.volume.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Вага вантажу</td>
+        <td>{{baggage.weight.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Літаків вивозили вантаж</td>
+        <td>{{baggage.planes.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>- з них вантажних</td>
+        <td>{{baggage.cargo_planes.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>- з них пасажирських</td>
+        <td>{{baggage.regular_planes.value || 0}}</td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <table class="table table-striped">
+    <caption>Статистика по видах багажу</caption>
+    <thead>
+      <tr>
+        <th>Тип багажу</th>
+        <th>Вага</th>
+        <th>Об'єм</th>
+        <th>Вагова частка типу</th>
+        <th>Об'ємна частка типу</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="stat in separateBaggageStats">
+        <td class="span3">{{stat.type_name.value}}</td>
+        <td>{{stat.type_weight.value}}</td>
+        <td>{{stat.type_volume.value}}</td>
+        <td>{{stat.type_total_weight_part.value}}%</td>
+        <td>{{stat.type_total_volume_part.value}}%</td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <table class="table table-striped">
+    <caption>Витрати і доходи</caption>
+    <tbody>
+      <tr>
+        <td class="span3">Доходи</td>
+        <td>{{debetCredit.income.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Обслуговування літаків</td>
+        <td>{{debetCredit.planes.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Обслуговування готелів</td>
+        <td>{{debetCredit.hotels.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Екскурсії</td>
+        <td>{{debetCredit.excursions.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Візи</td>
+        <td>{{debetCredit.visas.value || 0}}</td>
+      </tr>
+      <tr>
+        <td>Витрати представництва</td>
+        <td>{{debetCredit.spendings.value || 0}}</td>
+      </tr>
+      <tr>
+        <td><strong>Рентабельність</strong></td>
+        <td><strong>{{rentability.value * 100 || 0}}%</strong></td>
+      </tr>
+    </tbody>
+    </table>
+    
+  </div>
+
+</div>

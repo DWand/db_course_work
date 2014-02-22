@@ -1,0 +1,174 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="" ng-click="goBack()">
+        <i class="fa fa-chevron-left"></i>
+        Назад
+      </a>
+      
+      <ul class="nav">
+        <li>
+          <a href="" ng-click="savePlane()">
+            <i class="fa fa-save"></i>
+            Зберегти зміни
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="delPlane()">
+            <i class="fa fa-times-circle"></i>
+            Видалити літак
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="" ng-click="addFlight()">
+            <i class="fa fa-plus"></i>
+            Додати рейс
+          </a>
+        </li>
+      </ul>
+      
+      <button class="btn btn-danger pull-right" ng-click="logout()">
+        <span class="fa fa-sign-out"></span>
+        Вийти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+<caption>Інформація про літак</caption>
+<tbody>
+  <tr>
+    <td class="span2">Назва</td>
+    <td><input type="text" ng-model="plane.name.value"></td>
+  </tr>
+  <tr>
+    <td>Тип</td>
+    <td>
+      <select
+        ng-model="plane.type_id.value"
+        ng-options="type.id.value as type.name.value for type in types"></select>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table table-hover">
+  <caption>Інформація про рейси</caption>
+  <thead>
+    <tr>
+      <th>Дати</th>
+      <th>Вартість завантаження</th>
+      <th>Вартість розвантаження</th>
+      <th>Вартість зльоту</th>
+      <th>Вартість посадки</th>
+      <th>Вартість диспетчера</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="flight in flights" ng-click="showFight(flight)" class="list-item">
+      <td>{{flight.takeoff_date.value | date:'dd.MM.yyyy'}} - {{flight.landing_date.value | date:'dd.MM.yyyy'}}</td>
+      <td>{{flight.loading_cost.value}}</td>
+      <td>{{flight.unloading_cost.value}}</td>
+      <td>{{flight.takeoff_cost.value}}</td>
+      <td>{{flight.landing_cost.value}}</td>
+      <td>{{flight.dispetcher_cost.value}}</td>
+    </tr>
+  </tbody>
+  </table>
+
+
+<script type="text/ng-template" id="delPlaneTpl">
+  <div class="modal-header">
+      <h3>Видалення літака</h3>
+  </div>
+  <div class="modal-body alert-danger">
+    <h4>Небезпечна операція!</h4>
+    <p>
+      Увага, цю операцію не можливо відмінити. Ви дійсно бажаєте видалити літак
+      <strong>{{plane.name.value}}</strong>?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">Видалити!</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="addFlightTpl">
+  <div class="modal-header">
+      <h3>Новий рейс</h3>
+  </div>
+  <div class="modal-body datetime">
+    <form class="form-horizontal" name="form">
+      
+      <div class="control-group" ng-class="{error : newSch.takeoff === undefined}">
+        <label class="control-label datetime">Дата зльоту</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="newSch.takeoff" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+           
+          <span class="help-inline error" ng-show="newSch.takeoff === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : newSch.landing === undefined}">
+        <label class="control-label datetime">Дата посадки</label>
+        <div class="controls">
+          <datetimepicker show-weeks="false" hour-step="1" minute-step="10" ng-model="newSch.landing" 
+           show-meridian="false" date-format="dd.MM.yyyy" showMinutes="true"></datetimepicker>
+           
+          <span class="help-inline error" ng-show="newSch.landing === undefined">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost_loading.$error.required}">
+        <label class="control-label">Вартість завантаження</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost_loading" name="cost_loading" required>
+          <span class="help-inline error" ng-show="form.cost_loading.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost_unloading.$error.required}">
+        <label class="control-label">Вартість розвантаження</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost_unloading" name="cost_unloading" required>
+          <span class="help-inline error" ng-show="form.cost_unloading.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost_takeoff.$error.required}">
+        <label class="control-label">Вартість зльоту</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost_takeoff" name="cost_takeoff" required>
+          <span class="help-inline error" ng-show="form.cost_takeoff.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost_landing.$error.required}">
+        <label class="control-label">Вартість посадки</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost_landing" name="cost_landing" required>
+          <span class="help-inline error" ng-show="form.cost_landing.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+      <div class="control-group" ng-class="{error : form.cost_dispetcher.$error.required}">
+        <label class="control-label">Вартість диспетчера</label>
+        <div class="controls">
+          <input type="text" ng-model="newSch.cost_dispetcher" name="cost_dispetcher" required>
+          <span class="help-inline error" ng-show="form.cost_dispetcher.$error.required">Заповніть поле!</span>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" ng-show="form.$valid">Зберегти</button>
+    <button class="btn btn-default" ng-click="cancel()">Відміна</button>
+  </div>
+</script>
